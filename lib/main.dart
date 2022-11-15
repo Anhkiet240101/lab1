@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:myshop/ui/orders/order_manager.dart';
-import 'ui/products/products_manager.dart';
-import 'ui/products/product_detail_screen.dart';
-import 'ui/products/products_overview_screen.dart';
-import 'ui/products/user_products_screen.dart';
-import 'ui/cart/cart_screen.dart';
-import 'ui/orders/orders_screen.dart';
-import 'package:myshop/ui/cart/cart_manager.dart';
+import 'package:myshop/ui/orders/orders_screen.dart';
+import 'package:myshop/ui/products/edit_product_screen.dart';
+import 'package:myshop/ui/products/products_overview_screen.dart';
+import 'package:myshop/ui/products/products_manager.dart';
+import 'package:myshop/ui/screens.dart';
+import 'package:myshop/ui/products/user_products_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:myshop/ui/orders/order_manager.dart';
+import 'ui/screens.dart';
+
+// import 'package:myshop/ui/orders/order_manager.dart';
+// import 'ui/products/products_manager.dart';
+// import 'ui/products/product_detail_screen.dart';
+// import 'ui/products/products_overview_screen.dart';
+// import 'ui/products/user_products_screen.dart';
+// import 'ui/cart/cart_screen.dart';
+// import 'ui/orders/orders_screen.dart';
+// import 'package:myshop/ui/cart/cart_manager.dart';
+// import 'package:provider/provider.dart';
+// import 'package:myshop/ui/orders/order_manager.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,6 +67,18 @@ class MyApp extends StatelessWidget {
               },
             );
           }
+          if (settings.name == EditProductScreen.routeName) {
+            final productId = settings.arguments as String?;
+            return MaterialPageRoute(
+              builder: (ctx) {
+                return EditProductScreen(
+                  productId != null
+                      ? ctx.read<ProductsManager>().findById(productId)
+                      : null,
+                );
+              },
+            );
+          }
           return null;
         },
       ),
@@ -66,7 +87,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
